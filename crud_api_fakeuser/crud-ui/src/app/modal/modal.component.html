@@ -1,0 +1,57 @@
+<mat-toolbar>
+  <span></span>
+  <span class="fill-remaining-space"></span>
+  <button class="btn-dialog-close" mat-stroked-button (click)="onNoClick()" tabIndex="-1">
+    <mat-icon>clear</mat-icon>
+  </button>
+</mat-toolbar>
+<form [formGroup]="form" class="normal-form" (submit)="onSubmit()">
+  <mat-grid-list cols="2" rowHeight="300px" style="width: 400px;">
+    <mat-grid-tile>
+      <div class="controles-container">
+        <input type="hidden" formControlName="objectId">
+        <mat-form-field style="margin-top: 35px;">
+          <input formControlName="first_name" matInput placeholder="Firt name">
+          <mat-error *ngIf="form.get('first_name').hasError('required')">
+            First name is required
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field>
+          <input formControlName="last_name" matInput placeholder="Last name">
+          <mat-error *ngIf="form.get('last_name').hasError('required')">
+            Last name is required
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field>
+          <input formControlName="email" matInput placeholder="Email">
+          <mat-error *ngIf="form.get('email').hasError('required')">
+            Email is required
+          </mat-error>
+          <mat-error *ngIf="form.get('email').hasError('pattern')">
+            Email is not valid
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field>
+          <input formControlName="password" matInput placeholder="Password">
+          <mat-error *ngIf="form.get('password').hasError('required')">
+            Password is required
+          </mat-error>
+          <mat-error *ngIf="form.get('password').hasError('pattern')" style="margin-bottom: 10px;">
+            Password is not valid
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-select formControlName="roles" placeholder="Role">
+            <ng-container *ngFor="let roles of role">
+              <mat-option [value]="roles">{{roles}}</mat-option>
+            </ng-container>
+          </mat-select>
+          <mat-error *ngIf="form.get('roles').hasError('required')">
+            Role is required
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </mat-grid-tile>
+  </mat-grid-list>
+</form>
+<button style="margin-top: 20px;" (click)="onSubmit()">Save</button>

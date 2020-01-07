@@ -5,6 +5,9 @@ import { user } from './user.model';
 import { Observable } from 'rxjs';
 import 'rxjs/add/operator/map';
 import 'rxjs/Rx';
+import { FormGroup } from '@angular/forms';
+import { FormControl, Validators } from '@angular/forms';
+import * as _ from 'lodash';
 
 @Injectable({
   providedIn: 'root'
@@ -12,9 +15,10 @@ import 'rxjs/Rx';
 export class UserService {
 readonly apiURL = 'https://app-dev.joynit.io/api/classes/FakeUser'
   formData : user
+
   constructor(private http: HttpClient) {
   }
-
+  
   getUserList(){
     const myHeader = new HttpHeaders({'X-Parse-Application-Id': 'AT_LinpApp_Dev'});
     return this.http.get(this.apiURL, {headers: myHeader})
